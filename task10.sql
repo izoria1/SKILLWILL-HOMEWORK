@@ -22,5 +22,5 @@ WHERE Color = 'Blue' AND Quantity > 2;
 
 SELECT ProductName, (Price * Quantity) AS TotalCost FROM Products;
 
-SELECT * FROM Products
-WHERE Quantity > 10;
+SELECT * FROM Product WHERE (Length * Width) > 10;
+
