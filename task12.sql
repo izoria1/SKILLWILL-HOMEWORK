@@ -1,8 +1,8 @@
 -- Employees Table
 CREATE TABLE Employees (
     EmployeeID INT PRIMARY KEY,
-    FirstName VARCHAR(50),
-    LastName VARCHAR(50),
+    FirstName CHAR(50),
+    LastName CHAR(50),
     DepartmentID INT,
     ManagerID INT
 );
@@ -10,31 +10,33 @@ CREATE TABLE Employees (
 -- Departments Table
 CREATE TABLE Departments (
     DepartmentID INT PRIMARY KEY,
-    DepartmentName VARCHAR(100)
+    DepartmentName CHAR(100)
 );
 
 -- Managers Table
 CREATE TABLE Managers (
     ManagerID INT PRIMARY KEY,
-    ManagerName VARCHAR(50)
+    ManagerName CHAR(50)
 );
 
--- Create Foreign Key Relationships
+-- Connect Employees to Departments
 ALTER TABLE Employees
 ADD CONSTRAINT FK_Department
 FOREIGN KEY (DepartmentID)
 REFERENCES Departments(DepartmentID);
 
+-- Connect Employees to Managers
 ALTER TABLE Employees
 ADD CONSTRAINT FK_Manager
 FOREIGN KEY (ManagerID)
 REFERENCES Managers(ManagerID);
 
+-- Get Employee info with Department names
+SELECT Employees.FirstName, Employees.LastName, Departments.DepartmentName
+FROM Employees
+JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;
 
-SELECT e.FirstName, e.LastName, d.DepartmentName
-FROM Employees e
-JOIN Departments d ON e.DepartmentID = d.DepartmentID;
-
-SELECT e.FirstName, e.LastName, m.ManagerName
-FROM Employees e
-JOIN Managers m ON e.ManagerID = m.ManagerID;
+-- Get Employee info with Manager names
+SELECT Employees.FirstName, Employees.LastName, Managers.ManagerName
+FROM Employees
+JOIN Managers ON Employees.ManagerID = Managers.ManagerID;
